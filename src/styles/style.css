@@ -109,10 +109,9 @@ main {
 }
 #notesSubmit:hover {
   background-color: #373f4e;
-  color: #ffffff;
 }
 #notesSubmit:active {
-  background-color: #4e576a;
+  background-color: #f0f1f5;
 }
 
 /* form new notes */
@@ -148,7 +147,7 @@ main {
   border-radius: 0.5rem;
   background-color: #212631;
   color: #ffffff;
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: pointer;
 }
 #archivedListBtn:hover {
