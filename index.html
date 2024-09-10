@@ -4,6 +4,79 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notes App</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./src/styles/style.css" />
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div class="navbar">
+        <h1 class="nav-title">Notes App</h1>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <section id="formNewNotes">
+          <h2>New Notes</h2>
+          <form id="noteForm">
+            <div>
+              <label for="title">Title</label>
+              <input type="text" id="title" name="title" required />
+            </div>
+            <div>
+              <label for="description">Description</label>
+              <textarea id="description" name="description" required></textarea>
+            </div>
+            <button type="submit">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </form>
+        </section>
+        <section id="notesContainer">
+          <div><h2>Your Notes</h2></div>
+          <button id="allNotesBtn">All</button>
+          <button id="archivedListBtn">Archived</button>
+          <form id="searchForm">
+            <input type="text" id="searchInput" />
+            <button type="submit" id="searchSubmit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+          <div class="notes-list">
+            <div class="notes-item">
+              <h3>Judul Notes</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Placeat, amet.
+              </p>
+              <div>
+                <button class="btn-edit">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+                <button class="btn-archive">
+                  <i class="fa-solid fa-archive"></i>
+                </button>
+                <button class="btn-delete">
+                  <i class="fa-solid fa-trash-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <div>
+        <p>&copy; Isshoo's Notes App. All rights reserved.</p>
+      </div>
+    </footer>
+    <!-- script -->
+    <script src="./src/app.js" type="module"></script>
+  </body>
 </html>
