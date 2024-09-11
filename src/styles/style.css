@@ -23,6 +23,10 @@ textarea {
   color: #212631;
 }
 
+textarea {
+  height: 8rem;
+}
+
 i {
   color: #212631;
 }
@@ -276,14 +280,37 @@ main {
 footer {
   width: 100%;
   transition: background-color 0.3s ease;
+  background-color: #212631;
 }
 
 .foot {
-  background-color: #212631;
   color: #f0f1f5;
   padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.foot p {
+  text-align: center;
+}
 /* footer-bar */
+
+/* media query */
+
+@media screen and (max-width: 600px) {
+  #notesContainer {
+    grid-template-areas:
+      "judul judul"
+      "searchForm searchForm"
+      "allNotes archivedList"
+      "notesList notesList";
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .notes-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 1.5rem;
+  }
+}
