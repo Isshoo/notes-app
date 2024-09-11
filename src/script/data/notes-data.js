@@ -106,4 +106,51 @@ const notesData = [
   },
 ];
 
-console.log(notesData);
+class NotesData {
+  static getAll() {
+    return notesData;
+  }
+  static getById(id) {
+    return notesData.find((note) => note.id === id);
+  }
+  static add(note) {
+    notesData.push(note);
+  }
+  static update(note) {
+    const index = notesData.findIndex((n) => n.id === note.id);
+    if (index !== -1) {
+      notesData[index] = note;
+    }
+  }
+  static delete(id) {
+    const index = notesData.findIndex((n) => n.id === id);
+    if (index !== -1) {
+      notesData.splice(index, 1);
+    }
+  }
+  static archive(id) {
+    const note = this.getById(id);
+    if (note) {
+      note.archived = true;
+    }
+  }
+  static unarchive(id) {
+    const note = this.getById(id);
+    if (note) {
+      note.archived = false;
+    }
+  }
+
+  static searchNote(query) {
+    const filteredNotes = notesData.filter((note) => {
+      const loweredCaseNotes = (note.title || "-").toLowerCase();
+      const jammedNotes = loweredCaseNotes.replace(/\s/g, "");
+      const loweredCaseQuery = query.toLowerCase();
+      const jammedQuery = loweredCaseQuery.replace(/\s/g, "");
+      return jammedNotes.indexOf(jammedQuery) !== -1;
+    });
+    return filteredNotes;
+  }
+}
+
+export default NotesData;
