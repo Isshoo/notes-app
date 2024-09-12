@@ -4,11 +4,8 @@ class NotesList extends HTMLElement {
   _shadowRoot = null;
   _style = null;
 
-  _minWidth = 250;
-  _gap = 1;
-
   static get observedAttributes() {
-    return ["minWidth", "gap"];
+    return ["minwidth", "gap"];
   }
 
   constructor() {
@@ -16,6 +13,9 @@ class NotesList extends HTMLElement {
 
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._style = document.createElement("style");
+
+    this._minwidth = this.getAttribute("minwidth");
+    this._gap = this.getAttribute("gap");
 
     this.render();
   }
@@ -27,7 +27,7 @@ class NotesList extends HTMLElement {
       }
       .notes-list{
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(${this.minWidth}px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(${this.minwidth}px, 1fr));
         grid-template-rows: auto;
         gap: ${this.gap}rem;
         padding: 1.5rem 2rem;
@@ -43,15 +43,15 @@ class NotesList extends HTMLElement {
     `;
   }
 
-  set minWidth(value) {
+  set minwidth(value) {
     const newValue = Number(value);
     if (!Utils.isValidInteger(newValue)) return;
 
-    this._minWidth = value;
+    this._minwidth = value;
   }
 
-  get minWidth() {
-    return this._minWidth;
+  get minwidth() {
+    return this._minwidth;
   }
 
   set gap(value) {
@@ -83,11 +83,11 @@ class NotesList extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
-      case "minWidth":
-        this.column = newValue;
+      case "minwidth":
+        this.minwidth = newValue;
         break;
       case "gap":
-        this.gutter = newValue;
+        this.gap = newValue;
         break;
     }
 
