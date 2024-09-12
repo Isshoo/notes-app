@@ -3,6 +3,22 @@ class Utils {
     const unikId = Math.floor(Math.random() * 10000000000).toString(16);
     return `notes-${unikId}-${unikId}-${unikId}`;
   }
+
+  static generateCreatedAt() {
+    const date = new Date();
+    return date;
+  }
+
+  static makeNewNote(id, title, body, createdAt, archived) {
+    return {
+      id,
+      title,
+      body,
+      createdAt,
+      archived,
+    };
+  }
+
   static emptyElement(element) {
     element.innerHTML = "";
   }
