@@ -1,5 +1,9 @@
 import NotesData from "../data/notes-data.js";
 import Utils from "../utility/utils.js";
+import {
+  customValidationTitleHandler,
+  customValidationDescriptionHandler,
+} from "../utility/customValidation.js";
 
 const home = () => {
   const notes = NotesData.getAll();
@@ -17,6 +21,7 @@ const home = () => {
       noteItem.note = note;
       return noteItem;
     });
+
     Utils.emptyElement(notesList);
     notesList.append(...noteItems);
   };
@@ -40,6 +45,59 @@ const home = () => {
     render(notes);
     formNewNote.reset();
   }
+
+  const form = document.querySelector("#noteForm");
+  const titleInput = form.elements["title"];
+  const descriptionInput = form.elements["description"];
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+
+  titleInput.addEventListener("change", customValidationTitleHandler);
+  titleInput.addEventListener("invalid", customValidationTitleHandler);
+  descriptionInput.addEventListener(
+    "change",
+    customValidationDescriptionHandler
+  );
+  descriptionInput.addEventListener(
+    "invalid",
+    customValidationDescriptionHandler
+  );
+
+  titleInput.addEventListener("blur", (event) => {
+    // Validate the field
+    const isValid = event.target.validity.valid;
+    const errorMessage = event.target.validationMessage;
+
+    const connectedValidationId = event.target.getAttribute("aria-describedby");
+    const connectedValidationEl = connectedValidationId
+      ? document.getElementById(connectedValidationId)
+      : null;
+
+    if (connectedValidationEl && errorMessage && !isValid) {
+      connectedValidationEl.innerText = errorMessage;
+    } else {
+      connectedValidationEl.innerText = "";
+    }
+  });
+
+  descriptionInput.addEventListener("blur", (event) => {
+    // Validate the field
+    const isValid = event.target.validity.valid;
+    const errorMessage = event.target.validationMessage;
+
+    const connectedValidationId = event.target.getAttribute("aria-describedby");
+    const connectedValidationEl = connectedValidationId
+      ? document.getElementById(connectedValidationId)
+      : null;
+
+    if (connectedValidationEl && errorMessage && !isValid) {
+      connectedValidationEl.innerText = errorMessage;
+    } else {
+      connectedValidationEl.innerText = "";
+    }
+  });
 };
 
 export default home;

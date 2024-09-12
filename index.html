@@ -22,7 +22,7 @@
       <div class="container">
         <section id="formNewNotes">
           <h2>New Notes</h2>
-          <form id="noteForm">
+          <form id="noteForm" autocomplete="off">
             <div>
               <label for="title">Title</label>
               <input
@@ -31,7 +31,14 @@
                 name="title"
                 required
                 placeholder="Judul"
+                minlength="5"
+                aria-describedby="titleValidation"
               />
+              <p
+                id="titleValidation"
+                class="validation-message"
+                aria-live="polite"
+              ></p>
             </div>
             <div>
               <label for="description">Description</label>
@@ -40,7 +47,14 @@
                 name="description"
                 required
                 placeholder="Deskripsi"
+                minlength="10"
+                aria-describedby="descriptionValidation"
               ></textarea>
+              <p
+                id="descriptionValidation"
+                class="validation-message"
+                aria-live="polite"
+              ></p>
             </div>
             <button type="submit" id="notesSubmit">Tambahkan</button>
           </form>
