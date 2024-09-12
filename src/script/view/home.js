@@ -2,8 +2,11 @@ import NotesData from "../data/notes-data.js";
 import Utils from "../utility/utils.js";
 
 const home = () => {
-  let notes = [];
-  notes = NotesData.getAll();
+  const notes = NotesData.getAll();
+  console.log(notes);
+  // notes.forEach((note) => {
+  //   console.log(note);
+  // });
 
   const notesContainer = document.querySelector("#notesContainer");
   const judulNotesContainer = document.querySelector(".judul-note-container");
@@ -12,7 +15,7 @@ const home = () => {
   const searchForm = document.querySelector("#searchForm");
   const notesList = notesContainer.querySelector("notes-list");
 
-  const display = (notes) => {
+  const render = (notes) => {
     const noteItems = notes.map((note) => {
       const noteItem = document.createElement("notes-item");
       noteItem.note = note;
@@ -22,12 +25,7 @@ const home = () => {
     notesList.append(...noteItems);
   };
 
-  const showNotesList = () => {
-    Utils.showElement(notesList);
-  };
-
-  display(notes);
-  showNotesList();
+  render(notes);
 };
 
 export default home;

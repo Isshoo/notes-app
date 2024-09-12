@@ -110,13 +110,10 @@ class NotesData {
   static getAll() {
     return notesData;
   }
-  static getById(id) {
-    return notesData.find((note) => note.id === id);
-  }
   static add(note) {
     notesData.push(note);
   }
-  static update(note) {
+  static edit(note) {
     const index = notesData.findIndex((n) => n.id === note.id);
     if (index !== -1) {
       notesData[index] = note;
