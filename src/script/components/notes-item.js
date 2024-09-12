@@ -126,7 +126,7 @@ class NotesItem extends HTMLElement {
               crossorigin="anonymous"
               referrerpolicy="no-referrer"
             />
-            <div class="notes-item">
+            <div class="notes-item" data-noteid="${this._note.id}">
               <h3>${this._note.title}</h3>
               <p>
                 ${this._note.body}
