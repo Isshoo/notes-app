@@ -2,7 +2,8 @@ import NotesData from "../data/notes-data.js";
 import Utils from "../utility/utils.js";
 
 const home = () => {
-  const notes = NotesData.getAll();
+  let notes = [];
+  notes = NotesData.getAll();
 
   const notesContainer = document.querySelector("#notesContainer");
   const judulNotesContainer = document.querySelector(".judul-note-container");
