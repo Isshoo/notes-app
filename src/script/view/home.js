@@ -9,10 +9,6 @@ const home = () => {
   // });
 
   const notesContainer = document.querySelector("#notesContainer");
-  const judulNotesContainer = document.querySelector(".judul-note-container");
-  const allNotesBtn = document.querySelector("#allNotesBtn");
-  const archivedListBtn = document.querySelector("#archivedListBtn");
-  const searchForm = document.querySelector("#searchForm");
   const notesList = notesContainer.querySelector("notes-list");
 
   const render = (notes) => {
