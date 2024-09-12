@@ -83,6 +83,7 @@ class NotesItem extends HTMLElement {
           padding: 0.25rem;
           border-radius: 100%;
           transition: 0.3s ease;
+          border: none;
         }
         .btn-edit i,
         .btn-archive i,
@@ -101,6 +102,14 @@ class NotesItem extends HTMLElement {
             color: #212631;
           }
         }
+
+        .btn-edit:active,
+        .btn-archive:active,
+        .btn-delete:active {
+          i {
+            color: #0a0e15;
+          }
+        }
       `;
   }
 
@@ -110,6 +119,13 @@ class NotesItem extends HTMLElement {
 
     this._shadowRoot.appendChild(this._style);
     this._shadowRoot.innerHTML += `
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+              integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+              crossorigin="anonymous"
+              referrerpolicy="no-referrer"
+            />
             <div class="notes-item">
               <h3>${this._note.title}</h3>
               <p>
