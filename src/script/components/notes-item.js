@@ -34,7 +34,8 @@ class NotesItem extends HTMLElement {
   _updateStyle() {
     this._style.textContent = `
         :host {
-          display: block;
+          display: flex;
+          align-items: stretch;
         }
    
         .notes-item {
@@ -45,8 +46,10 @@ class NotesItem extends HTMLElement {
           background-color: #e0e4eb;
           display: flex;
           flex-direction: column;
-
+          gap: 0.75rem;
           transition: 0.3s ease;
+          justify-content: space-between;
+          width: 100%;
         }
         .notes-item:hover {
           background-color: #ffffff;
@@ -55,10 +58,12 @@ class NotesItem extends HTMLElement {
 
         .notes-item h3 {
           color: #0a0e15;
+          margin-block: 0;
         }
 
         .notes-item p {
           color: #212631;
+          margin-block: 0;
         }
 
         .notes-item .buttons {

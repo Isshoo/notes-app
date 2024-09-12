@@ -161,7 +161,7 @@ main {
   gap: 0.5rem;
   justify-content: end;
 }
-.notes-list {
+notes-list {
   grid-area: notesList;
 }
 
@@ -197,78 +197,8 @@ main {
   gap: 1rem;
   grid-template-areas:
     "judul judul judul judul judul judul"
-    "allNotes archivedList . . searchForm searchForm"
+    "allNotes archivedList . searchForm searchForm searchForm"
     "notesList notesList notesList notesList notesList notesList";
-}
-
-.notes-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-template-rows: auto;
-  gap: 1rem;
-  padding: 1.5rem 2rem;
-  background-color: #212631;
-  border-radius: 16px;
-}
-
-.notes-item {
-  border: 1px solid #212631;
-  border-radius: 16px;
-  padding: 1rem;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  background-color: #e0e4eb;
-  display: flex;
-  flex-direction: column;
-
-  transition: 0.3s ease;
-}
-.notes-item:hover {
-  background-color: #ffffff;
-  transition: 0.3s ease;
-}
-
-.notes-item h3 {
-  color: #0a0e15;
-}
-
-.notes-item p {
-  color: #212631;
-}
-
-.notes-item .buttons {
-  align-self: flex-end;
-}
-
-.buttons {
-  display: flex;
-  gap: 0.25rem;
-}
-
-.btn-edit,
-.btn-archive,
-.btn-delete {
-  background-color: transparent;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 100%;
-  transition: 0.3s ease;
-}
-.btn-edit i,
-.btn-archive i,
-.btn-delete i {
-  font-size: 1rem;
-  color: #373f4e;
-}
-
-.btn-edit:hover,
-.btn-archive:hover,
-.btn-delete:hover {
-  transform: scale(1.3);
-  transition: 0.3s ease;
-
-  i {
-    color: #212631;
-  }
 }
 
 /* notes container */
@@ -291,12 +221,5 @@ footer {
       "searchForm searchForm"
       "allNotes archivedList"
       "notesList notesList";
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .notes-list {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    padding: 1.5rem;
   }
 }
