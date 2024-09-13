@@ -6,6 +6,10 @@ import {
 } from "../utility/customValidation.js";
 
 const home = () => {
+  // if (cekStorage()) {
+  //   ambilDataDariStorage();
+  // }
+
   const notes = NotesData.getAll();
   console.log(notes);
   // notes.forEach((note) => {
@@ -98,6 +102,40 @@ const home = () => {
       connectedValidationEl.innerText = "";
     }
   });
+
+  // // STORAGE;
+  // const STORAGE_KEY = "Daftar_Notes";
+  // const DATA = "Data_Tersimpan";
+
+  // function cekStorage() {
+  //   const isStorageAvailable = typeof Storage !== "undefined";
+  //   if (!isStorageAvailable) {
+  //     alert("Browser anda tidak mendukung storage local");
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  // function simpanData() {
+  //   if (cekStorage()) {
+  //     const stringDaftarNote = JSON.stringify(notes);
+  //     localStorage.setItem(STORAGE_KEY, stringDaftarNote);
+  //     console.log(stringDaftarNote);
+  //     document.dispatchEvent(new Event(DATA));
+  //   }
+  // }
+
+  // const ambilDataDariStorage = () => {
+  //   const stringDaftarNote = localStorage.getItem(STORAGE_KEY);
+  //   const daftarNote = stringDaftarNote ? JSON.parse(stringDaftarNote) : [];
+  //   notes.push(...daftarNote);
+  //   render(notes);
+  //   console.log(notes);
+  // };
+
+  // document.addEventListener(DATA, function () {
+  //   console.log(localStorage.getItem(STORAGE_KEY));
+  // });
 };
 
 export default home;
