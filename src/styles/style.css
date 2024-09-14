@@ -133,7 +133,7 @@ textarea:user-invalid {
   border-radius: 0.5rem;
   background-color: #212631;
   color: #ffffff;
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: pointer;
 }
 #allNotesBtn:hover {
