@@ -21,5 +21,14 @@ module.exports = {
       template: path.join(__dirname, "index.html"),
       filename: "index.html",
     }),
+
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.join(__dirname, "src/public"),
+          to: path.join(__dirname, "dist"),
+        },
+      ],
+    }),
   ],
 };
