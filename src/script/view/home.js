@@ -100,6 +100,25 @@ const home = () => {
       connectedValidationEl.innerText = "";
     }
   });
+
+  // ALL NOTES LIST & ARCHIVE LIST
+  const allList = document.getElementById("allNotesBtn");
+  const archivedList = document.getElementById("archivedListBtn");
+
+  archivedList.addEventListener("click", () => {
+    archivedList.classList.add("active");
+    allList.classList.remove("active");
+
+    const notesArchived = notes.filter((note) => note.archived);
+    render(notesArchived);
+  });
+
+  allList.addEventListener("click", () => {
+    allList.classList.add("active");
+    archivedList.classList.remove("active");
+
+    render(notes);
+  });
 };
 
 export default home;
