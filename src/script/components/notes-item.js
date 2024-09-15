@@ -113,6 +113,8 @@ class NotesItem extends HTMLElement {
       `;
   }
 
+  _handleClick() {}
+
   render() {
     this._emptyContent();
     this._updateStyle();
@@ -144,6 +146,7 @@ class NotesItem extends HTMLElement {
               </div>
             </div>
       `;
+    this._handleClick();
   }
 }
 
