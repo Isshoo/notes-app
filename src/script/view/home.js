@@ -6,13 +6,21 @@ import {
   customValidationDescriptionHandler,
 } from "../utility/customValidation.js";
 
-const home = async () => {
-  const unarchivedNotes = await NotesApi.getUnarchivedNotes();
-  console.log(unarchivedNotes);
-  const archivedNotes = await NotesApi.getArchivedNotes();
-  console.log(archivedNotes);
+const home = () => {
+  const renderUnarchived = async () => {
+    const response = await NotesApi.getUnarchivedNotes();
+    console.log(response);
+    render(response);
+  };
+
+  const renderArchived = async () => {
+    const response = await NotesApi.getArchivedNotes();
+    console.log(response);
+    render(response);
+  };
 
   //RENDER NOTES LIST
+  renderUnarchived();
 
   const notesContainer = document.querySelector("#notesContainer");
   const notesList = notesContainer.querySelector("notes-list");
@@ -27,8 +35,6 @@ const home = async () => {
     Utils.emptyElement(notesList);
     notesList.append(...noteItems);
   };
-
-  render(unarchivedNotes);
 
   // CREATE NEW NOTE
 
@@ -45,9 +51,10 @@ const home = async () => {
     const createdAt = Utils.generateCreatedAt();
 
     const newNote = Utils.makeNewNote(id, title, body, createdAt, false);
+
     NotesApi.createNote(newNote);
 
-    render(unarchivedNotes);
+    renderUnarchived();
     formNewNote.reset();
   }
 
@@ -114,14 +121,14 @@ const home = async () => {
     archivedList.classList.add("active");
     allList.classList.remove("active");
 
-    render(archivedNotes);
+    renderArchived();
   });
 
   allList.addEventListener("click", () => {
     allList.classList.add("active");
     archivedList.classList.remove("active");
 
-    render(unarchivedNotes);
+    renderUnarchived();
   });
 };
 

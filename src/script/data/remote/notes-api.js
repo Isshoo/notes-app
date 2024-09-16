@@ -14,7 +14,7 @@ class NotesApi {
   }
   static async getArchivedNotes() {
     try {
-      const response = await fetch(`${baseUrl}/notes?archived=true`);
+      const response = await fetch(`${baseUrl}/notes/archived`);
       const responseJson = await response.json();
       const data = responseJson.data;
 
@@ -31,13 +31,17 @@ class NotesApi {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newNote),
+        body: JSON.stringify({
+          title: newNote.title,
+          body: newNote.body,
+        }),
       };
 
       const response = await fetch(`${baseUrl}/notes`, options);
       const responseJson = await response.json();
       const data = responseJson.data;
 
+      console.log(data);
       return data;
     } catch (error) {
       throw new Error(`HTTP error! status: ${response.status}`);
