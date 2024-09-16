@@ -1,12 +1,16 @@
 import NotesData from "../data/notes-data.js";
+import NotesApi from "../data/remote/notes-api.js";
 import Utils from "../utility/utils.js";
 import {
   customValidationTitleHandler,
   customValidationDescriptionHandler,
 } from "../utility/customValidation.js";
 
-const home = () => {
-  const notes = NotesData.getAll();
+const home = async () => {
+  const unarchivedNotes = await NotesApi.getUnarchivedNotes();
+  console.log(unarchivedNotes);
+  const archivedNotes = await NotesApi.getArchivedNotes();
+  console.log(archivedNotes);
 
   //RENDER NOTES LIST
 
@@ -24,7 +28,7 @@ const home = () => {
     notesList.append(...noteItems);
   };
 
-  render(notes);
+  render(unarchivedNotes);
 
   // CREATE NEW NOTE
 
@@ -33,6 +37,7 @@ const home = () => {
     event.preventDefault();
     newNotes();
   });
+
   function newNotes() {
     const id = Utils.generateUniqueId();
     const title = document.getElementById("title").value;
@@ -40,9 +45,9 @@ const home = () => {
     const createdAt = Utils.generateCreatedAt();
 
     const newNote = Utils.makeNewNote(id, title, body, createdAt, false);
-    NotesData.add(newNote);
+    NotesApi.createNote(newNote);
 
-    render(notes);
+    render(unarchivedNotes);
     formNewNote.reset();
   }
 
@@ -109,15 +114,14 @@ const home = () => {
     archivedList.classList.add("active");
     allList.classList.remove("active");
 
-    const notesArchived = notes.filter((note) => note.archived);
-    render(notesArchived);
+    render(archivedNotes);
   });
 
   allList.addEventListener("click", () => {
     allList.classList.add("active");
     archivedList.classList.remove("active");
 
-    render(notes);
+    render(unarchivedNotes);
   });
 };
 
