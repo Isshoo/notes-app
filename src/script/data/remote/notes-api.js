@@ -47,6 +47,23 @@ class NotesApi {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
   }
+
+  static async deleteNote(noteId) {
+    try {
+      const options = {
+        method: "DELETE",
+      };
+
+      const response = await fetch(`${baseUrl}/notes/${noteId}`, options);
+      const responseJson = await response.json();
+      const data = responseJson.data;
+
+      console.log(data);
+      return data;
+    } catch (error) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  }
 }
 
 export default NotesApi;

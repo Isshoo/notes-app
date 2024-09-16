@@ -1,4 +1,3 @@
-import NotesData from "../data/notes-data.js";
 import NotesApi from "../data/remote/notes-api.js";
 import Utils from "../utility/utils.js";
 import {
@@ -72,11 +71,11 @@ const home = () => {
   titleInput.addEventListener("invalid", customValidationTitleHandler);
   descriptionInput.addEventListener(
     "change",
-    customValidationDescriptionHandler
+    customValidationDescriptionHandler,
   );
   descriptionInput.addEventListener(
     "invalid",
-    customValidationDescriptionHandler
+    customValidationDescriptionHandler,
   );
 
   titleInput.addEventListener("blur", (event) => {
