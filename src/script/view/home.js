@@ -20,8 +20,6 @@ const home = () => {
 
   //RENDER NOTES LIST
 
-  renderUnarchived();
-
   const notesContainer = document.querySelector("#notesContainer");
   const notesList = notesContainer.querySelector("notes-list");
 
