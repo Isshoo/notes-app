@@ -1,3 +1,5 @@
+import Utils from "../../utility/utils";
+
 const baseUrl = "https://notes-api.dicoding.dev/v2";
 
 class NotesApi {

@@ -119,19 +119,34 @@ const home = () => {
   const allList = document.getElementById("allNotesBtn");
   const archivedList = document.getElementById("archivedListBtn");
 
-  archivedList.addEventListener("click", () => {
+  archivedList.addEventListener("click", async () => {
     archivedList.classList.add("active");
     allList.classList.remove("active");
+
+    await loading();
 
     renderArchived();
   });
 
-  allList.addEventListener("click", () => {
+  allList.addEventListener("click", async () => {
     allList.classList.add("active");
     archivedList.classList.remove("active");
 
+    await loading();
+
     renderUnarchived();
   });
+
+  //LOADING
+  const loadingElement = document.createElement("res-loading");
+
+  const loading = async () => {
+    notesList.innerHTML = "";
+
+    notesList.append(loadingElement);
+
+    await Utils.delay();
+  };
 
   return {
     renderUnarchived,

@@ -50,7 +50,7 @@ class Utils {
     return new Promise((resolve) =>
       setTimeout(() => {
         resolve(response);
-      }, 3000),
+      }, 1000),
     );
   }
 }
