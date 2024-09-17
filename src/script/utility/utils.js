@@ -45,6 +45,14 @@ class Utils {
   static isValidInteger(newValue) {
     return Number.isNaN(newValue) || Number.isFinite(newValue);
   }
+
+  static delay(response = null) {
+    return new Promise((resolve) =>
+      setTimeout(() => {
+        resolve(response);
+      }, 3000),
+    );
+  }
 }
 
 export default Utils;
