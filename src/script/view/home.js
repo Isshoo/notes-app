@@ -5,43 +5,72 @@ import {
   customValidationDescriptionHandler,
 } from "../utility/customValidation.js";
 
+const renderUnarchived = async () => {
+  try {
+    const response = await NotesApi.getUnarchivedNotes();
+
+    render(response);
+  } catch (error) {
+    console.error("Error fetching unarchived notes:", error);
+  }
+};
+
+const renderArchived = async () => {
+  try {
+    const response = await NotesApi.getArchivedNotes();
+
+    render(response);
+  } catch (error) {
+    console.error("Error fetching archived notes:", error);
+  }
+};
+
+//RENDER NOTES LIST
+const notesContainer = document.querySelector("#notesContainer");
+const notesList = notesContainer.querySelector("notes-list");
+
+const render = (notes) => {
+  const noteItems = notes.map((note) => {
+    const noteItem = document.createElement("notes-item");
+    noteItem.note = note;
+    return noteItem;
+  });
+
+  Utils.emptyElement(notesList);
+  notesList.append(...noteItems);
+};
+
+// ALL NOTES LIST & ARCHIVE LIST
+const allList = document.getElementById("allNotesBtn");
+const archivedList = document.getElementById("archivedListBtn");
+
+archivedList.addEventListener("click", (e) => {
+  e.preventDefault();
+  archivedList.classList.add("active");
+  allList.classList.remove("active");
+
+  renderArchived();
+});
+
+allList.addEventListener("click", (e) => {
+  e.preventDefault();
+  allList.classList.add("active");
+  archivedList.classList.remove("active");
+
+  renderUnarchived();
+});
+
+//LOADING
+const loadingElement = document.createElement("res-loading");
+
+const loading = async () => {
+  notesList.innerHTML = "";
+
+  notesList.append(loadingElement);
+
+  await Utils.delay();
+};
 const home = () => {
-  const renderUnarchived = async () => {
-    try {
-      const response = await NotesApi.getUnarchivedNotes();
-
-      render(response);
-    } catch (error) {
-      console.error("Error fetching unarchived notes:", error);
-    }
-  };
-
-  const renderArchived = async () => {
-    try {
-      const response = await NotesApi.getArchivedNotes();
-
-      render(response);
-    } catch (error) {
-      console.error("Error fetching archived notes:", error);
-    }
-  };
-
-  //RENDER NOTES LIST
-
-  const notesContainer = document.querySelector("#notesContainer");
-  const notesList = notesContainer.querySelector("notes-list");
-
-  const render = (notes) => {
-    const noteItems = notes.map((note) => {
-      const noteItem = document.createElement("notes-item");
-      noteItem.note = note;
-      return noteItem;
-    });
-
-    Utils.emptyElement(notesList);
-    notesList.append(...noteItems);
-  };
-
   // CREATE NEW NOTE
 
   const formNewNote = document.getElementById("noteForm");
@@ -117,46 +146,6 @@ const home = () => {
       connectedValidationEl.innerText = "";
     }
   });
-
-  // ALL NOTES LIST & ARCHIVE LIST
-  const allList = document.getElementById("allNotesBtn");
-  const archivedList = document.getElementById("archivedListBtn");
-
-  archivedList.addEventListener("click", async (e) => {
-    e.preventDefault();
-    archivedList.classList.add("active");
-    allList.classList.remove("active");
-
-    await loading();
-
-    renderArchived();
-  });
-
-  allList.addEventListener("click", async (e) => {
-    e.preventDefault();
-    allList.classList.add("active");
-    archivedList.classList.remove("active");
-
-    await loading();
-
-    renderUnarchived();
-  });
-
-  //LOADING
-  const loadingElement = document.createElement("res-loading");
-
-  const loading = async () => {
-    notesList.innerHTML = "";
-
-    notesList.append(loadingElement);
-
-    await Utils.delay();
-  };
-
-  return {
-    renderUnarchived,
-    renderArchived,
-  };
 };
 
-export default home;
+export { home, render, loading, renderArchived, renderUnarchived };

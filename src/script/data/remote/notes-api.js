@@ -1,9 +1,11 @@
 import Swal from "sweetalert2";
+import { loading } from "../../view/home";
 const baseUrl = "https://notes-api.dicoding.dev/v2";
 
 class NotesApi {
   static async getUnarchivedNotes() {
     try {
+      await loading();
       const response = await fetch(`${baseUrl}/notes`);
       const responseJson = await response.json();
       const data = await responseJson.data;
@@ -16,6 +18,7 @@ class NotesApi {
   }
   static async getArchivedNotes() {
     try {
+      await loading();
       const response = await fetch(`${baseUrl}/notes/archived`);
       const responseJson = await response.json();
       const data = await responseJson.data;
@@ -39,6 +42,8 @@ class NotesApi {
           body: newNote.body,
         }),
       };
+
+      await loading();
 
       const response = await fetch(`${baseUrl}/notes`, options);
       const responseJson = await response.json();
@@ -65,6 +70,8 @@ class NotesApi {
         method: "DELETE",
       };
 
+      await loading();
+
       const response = await fetch(`${baseUrl}/notes/${noteId}`, options);
       const responseJson = await response.json();
 
@@ -88,6 +95,8 @@ class NotesApi {
       const options = {
         method: "POST",
       };
+
+      await loading();
 
       const response = await fetch(
         `${baseUrl}/notes/${noteId}/archive`,
@@ -115,6 +124,8 @@ class NotesApi {
       const options = {
         method: "POST",
       };
+
+      await loading();
 
       const response = await fetch(
         `${baseUrl}/notes/${noteId}/unarchive`,

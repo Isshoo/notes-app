@@ -1,5 +1,5 @@
 import NotesApi from "../data/remote/notes-api";
-import home from "../view/home";
+import { renderUnarchived, renderArchived } from "../view/home";
 
 class NotesItem extends HTMLElement {
   _shadowRoot = null;
@@ -140,9 +140,9 @@ class NotesItem extends HTMLElement {
       await NotesApi.deleteNote(noteId);
 
       if (this._note.archived) {
-        home().renderArchived();
+        renderArchived();
       } else {
-        home().renderUnarchived();
+        renderUnarchived();
       }
     };
 
@@ -152,10 +152,10 @@ class NotesItem extends HTMLElement {
 
       if (this._note.archived) {
         await NotesApi.unarchive(noteId);
-        home().renderArchived();
+        renderArchived();
       } else {
         await NotesApi.archive(noteId);
-        home().renderUnarchived();
+        renderUnarchived();
       }
     };
 
