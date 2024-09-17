@@ -53,6 +53,7 @@ class NotesItem extends HTMLElement {
           transition: 0.3s ease;
           justify-content: space-between;
           width: 100%;
+          overflow: auto;
         }
         .notes-item:hover {
           background-color: #ffffff;
@@ -62,6 +63,10 @@ class NotesItem extends HTMLElement {
         .notes-item h3 {
           color: #0a0e15;
           margin-block: 0;
+        }
+
+        .note-des {
+        overflow: auto;
         }
 
         .notes-item p {
@@ -120,14 +125,18 @@ class NotesItem extends HTMLElement {
     const deleteBtn = this.shadowRoot.querySelector(".btn-delete");
     const archiveBtn = this.shadowRoot.querySelector(".btn-archive");
 
-    deleteBtn.addEventListener("click", (e) => {
+    // Hapus listener sebelumnya jika ada
+    deleteBtn.removeEventListener("click", this._onDelete);
+    archiveBtn.removeEventListener("click", this._onArchive);
+
+    // Definisikan ulang fungsi handler agar bisa direferensikan untuk removeEventListener
+    this._onDelete = (e) => {
       e.preventDefault();
       const noteId = this._note.id;
 
       NotesApi.deleteNote(noteId)
         .then(() => {
           const fungsiHome = home();
-
           if (this._note.archived) {
             fungsiHome.renderArchived();
           } else {
@@ -137,9 +146,9 @@ class NotesItem extends HTMLElement {
         .catch((err) => {
           console.error("Error deleting note:", err);
         });
-    });
+    };
 
-    archiveBtn.addEventListener("click", (e) => {
+    this._onArchive = (e) => {
       e.preventDefault();
       const noteId = this._note.id;
 
@@ -162,7 +171,11 @@ class NotesItem extends HTMLElement {
             console.error("Error archiving note:", err);
           });
       }
-    });
+    };
+
+    // Tambahkan event listener yang baru
+    deleteBtn.addEventListener("click", this._onDelete);
+    archiveBtn.addEventListener("click", this._onArchive);
   }
 
   render() {
@@ -180,9 +193,11 @@ class NotesItem extends HTMLElement {
             />
             <div class="notes-item" data-noteid="${this._note.id}">
               <h3>${this._note.title}</h3>
+              <div class="note-des">
               <p>
                 ${this._note.body}
               </p>
+              </div>
               <div class="buttons">
                 <button class="btn-archive">
                   <i class="fa-solid fa-archive"></i>

@@ -119,7 +119,8 @@ const home = () => {
   const allList = document.getElementById("allNotesBtn");
   const archivedList = document.getElementById("archivedListBtn");
 
-  archivedList.addEventListener("click", async () => {
+  archivedList.addEventListener("click", async (e) => {
+    e.preventDefault();
     archivedList.classList.add("active");
     allList.classList.remove("active");
 
@@ -128,7 +129,8 @@ const home = () => {
     renderArchived();
   });
 
-  allList.addEventListener("click", async () => {
+  allList.addEventListener("click", async (e) => {
+    e.preventDefault();
     allList.classList.add("active");
     archivedList.classList.remove("active");
 

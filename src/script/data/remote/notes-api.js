@@ -1,30 +1,35 @@
-import Utils from "../../utility/utils";
-
+import Swal from "sweetalert2";
 const baseUrl = "https://notes-api.dicoding.dev/v2";
 
 class NotesApi {
   static async getUnarchivedNotes() {
     try {
-      const response = await fetch(`${baseUrl}/notes`);
+      const options = {
+        method: "GET",
+      };
+      const response = await fetch(`${baseUrl}/notes`, options);
       const responseJson = await response.json();
-      const data = responseJson.data;
+      const data = await responseJson.data;
 
       console.log(responseJson.message);
       return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${responseJson.status}`);
+      throw new Error();
     }
   }
   static async getArchivedNotes() {
     try {
-      const response = await fetch(`${baseUrl}/notes/archived`);
+      const options = {
+        method: "GET",
+      };
+      const response = await fetch(`${baseUrl}/notes/archived`, options);
       const responseJson = await response.json();
-      const data = responseJson.data;
+      const data = await responseJson.data;
 
       console.log(responseJson.message);
       return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${responseJson.status}`);
+      throw new Error();
     }
   }
 
@@ -43,13 +48,20 @@ class NotesApi {
 
       const response = await fetch(`${baseUrl}/notes`, options);
       const responseJson = await response.json();
-      const data = responseJson.data;
+
+      Swal.fire({
+        title: `${responseJson.status}`,
+        text: `${responseJson.message}`,
+        icon: "success",
+      });
 
       console.log(responseJson.message);
-      this.getUnarchivedNotes();
-      return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${responseJson.status}`);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   }
 
@@ -61,13 +73,19 @@ class NotesApi {
 
       const response = await fetch(`${baseUrl}/notes/${noteId}`, options);
       const responseJson = await response.json();
-      const data = responseJson.data;
+
+      Swal.fire({
+        title: `${responseJson.message}`,
+        icon: "success",
+      });
 
       console.log(responseJson.message);
-
-      return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${responseJson.status}`);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   }
 
@@ -82,13 +100,19 @@ class NotesApi {
         options,
       );
       const responseJson = await response.json();
-      const data = responseJson.data;
+
+      Swal.fire({
+        title: `${responseJson.message}`,
+        icon: "success",
+      });
 
       console.log(responseJson.message);
-
-      return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${responseJson.status}`);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   }
 
@@ -103,13 +127,19 @@ class NotesApi {
         options,
       );
       const responseJson = await response.json();
-      const data = responseJson.data;
+
+      Swal.fire({
+        title: `${responseJson.message}`,
+        icon: "success",
+      });
 
       console.log(responseJson.message);
-
-      return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${responseJson.status}`);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   }
 }
