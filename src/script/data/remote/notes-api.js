@@ -49,9 +49,6 @@ class NotesApi {
         icon: "success",
       });
 
-      await NotesApi.getArchivedNotes();
-      await NotesApi.getUnarchivedNotes();
-
       console.log(responseJson.message);
     } catch (error) {
       Swal.fire({
@@ -75,9 +72,6 @@ class NotesApi {
         title: `${responseJson.message}`,
         icon: "success",
       });
-
-      await NotesApi.getArchivedNotes();
-      await NotesApi.getUnarchivedNotes();
 
       console.log(responseJson.message);
     } catch (error) {
@@ -106,9 +100,6 @@ class NotesApi {
         icon: "success",
       });
 
-      await NotesApi.getArchivedNotes();
-      await NotesApi.getUnarchivedNotes();
-
       console.log(responseJson.message);
     } catch (error) {
       Swal.fire({
@@ -135,9 +126,6 @@ class NotesApi {
         title: `${responseJson.message}`,
         icon: "success",
       });
-
-      await NotesApi.getArchivedNotes();
-      await NotesApi.getUnarchivedNotes();
 
       console.log(responseJson.message);
     } catch (error) {
