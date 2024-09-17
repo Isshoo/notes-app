@@ -13,7 +13,11 @@ class NotesApi {
       console.log(responseJson.message);
       return data;
     } catch (error) {
-      throw new Error();
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   }
   static async getArchivedNotes() {
@@ -26,7 +30,11 @@ class NotesApi {
       console.log(responseJson.message);
       return data;
     } catch (error) {
-      throw new Error();
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   }
 
