@@ -7,15 +7,23 @@ import {
 
 const home = () => {
   const renderUnarchived = async () => {
-    const response = await NotesApi.getUnarchivedNotes();
+    try {
+      const response = await NotesApi.getUnarchivedNotes();
 
-    render(response);
+      render(response);
+    } catch (error) {
+      console.error("Error fetching unarchived notes:", error);
+    }
   };
 
   const renderArchived = async () => {
-    const response = await NotesApi.getArchivedNotes();
+    try {
+      const response = await NotesApi.getArchivedNotes();
 
-    render(response);
+      render(response);
+    } catch (error) {
+      console.error("Error fetching archived notes:", error);
+    }
   };
 
   //RENDER NOTES LIST
@@ -39,36 +47,31 @@ const home = () => {
   const formNewNote = document.getElementById("noteForm");
   formNewNote.addEventListener("submit", function (event) {
     event.preventDefault();
-    newNotes();
-  });
 
-  function newNotes() {
     const id = Utils.generateUniqueId();
     const title = document.getElementById("title").value;
     const body = document.getElementById("description").value;
     const createdAt = Utils.generateCreatedAt();
 
-    const newNote = Utils.makeNewNote(id, title, body, createdAt, false);
-
-    NotesApi.createNote(newNote);
-
-    allList.classList.add("active");
-    archivedList.classList.remove("active");
-
-    renderUnarchived();
-
+    newNotes();
     formNewNote.reset();
-  }
+
+    function newNotes() {
+      const newNote = Utils.makeNewNote(id, title, body, createdAt, false);
+
+      NotesApi.createNote(newNote).then(() => {
+        renderUnarchived();
+      });
+
+      allList.classList.add("active");
+      archivedList.classList.remove("active");
+    }
+  });
 
   //  CUSTOM VALIDATION
 
-  const form = document.querySelector("#noteForm");
-  const titleInput = form.elements["title"];
-  const descriptionInput = form.elements["description"];
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-  });
+  const titleInput = formNewNote.elements["title"];
+  const descriptionInput = formNewNote.elements["description"];
 
   titleInput.addEventListener("change", customValidationTitleHandler);
   titleInput.addEventListener("invalid", customValidationTitleHandler);

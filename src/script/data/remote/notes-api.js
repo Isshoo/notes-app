@@ -4,10 +4,7 @@ const baseUrl = "https://notes-api.dicoding.dev/v2";
 class NotesApi {
   static async getUnarchivedNotes() {
     try {
-      const options = {
-        method: "GET",
-      };
-      const response = await fetch(`${baseUrl}/notes`, options);
+      const response = await fetch(`${baseUrl}/notes`);
       const responseJson = await response.json();
       const data = await responseJson.data;
 
@@ -19,10 +16,7 @@ class NotesApi {
   }
   static async getArchivedNotes() {
     try {
-      const options = {
-        method: "GET",
-      };
-      const response = await fetch(`${baseUrl}/notes/archived`, options);
+      const response = await fetch(`${baseUrl}/notes/archived`);
       const responseJson = await response.json();
       const data = await responseJson.data;
 
@@ -55,6 +49,9 @@ class NotesApi {
         icon: "success",
       });
 
+      await NotesApi.getArchivedNotes();
+      await NotesApi.getUnarchivedNotes();
+
       console.log(responseJson.message);
     } catch (error) {
       Swal.fire({
@@ -78,6 +75,9 @@ class NotesApi {
         title: `${responseJson.message}`,
         icon: "success",
       });
+
+      await NotesApi.getArchivedNotes();
+      await NotesApi.getUnarchivedNotes();
 
       console.log(responseJson.message);
     } catch (error) {
@@ -106,6 +106,9 @@ class NotesApi {
         icon: "success",
       });
 
+      await NotesApi.getArchivedNotes();
+      await NotesApi.getUnarchivedNotes();
+
       console.log(responseJson.message);
     } catch (error) {
       Swal.fire({
@@ -132,6 +135,9 @@ class NotesApi {
         title: `${responseJson.message}`,
         icon: "success",
       });
+
+      await NotesApi.getArchivedNotes();
+      await NotesApi.getUnarchivedNotes();
 
       console.log(responseJson.message);
     } catch (error) {

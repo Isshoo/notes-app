@@ -125,55 +125,40 @@ class NotesItem extends HTMLElement {
     const deleteBtn = this.shadowRoot.querySelector(".btn-delete");
     const archiveBtn = this.shadowRoot.querySelector(".btn-archive");
 
-    // Hapus listener sebelumnya jika ada
-    deleteBtn.removeEventListener("click", this._onDelete);
-    archiveBtn.removeEventListener("click", this._onArchive);
+    if (this._onDelete) {
+      deleteBtn.removeEventListener("click", this._onDelete);
+    }
 
-    // Definisikan ulang fungsi handler agar bisa direferensikan untuk removeEventListener
-    this._onDelete = (e) => {
+    if (this._onArchive) {
+      archiveBtn.removeEventListener("click", this._onArchive);
+    }
+
+    this._onDelete = async (e) => {
       e.preventDefault();
       const noteId = this._note.id;
 
-      NotesApi.deleteNote(noteId)
-        .then(() => {
-          const fungsiHome = home();
-          if (this._note.archived) {
-            fungsiHome.renderArchived();
-          } else {
-            fungsiHome.renderUnarchived();
-          }
-        })
-        .catch((err) => {
-          console.error("Error deleting note:", err);
-        });
+      await NotesApi.deleteNote(noteId);
+
+      if (this._note.archived) {
+        home().renderArchived();
+      } else {
+        home().renderUnarchived();
+      }
     };
 
-    this._onArchive = (e) => {
+    this._onArchive = async (e) => {
       e.preventDefault();
       const noteId = this._note.id;
 
       if (this._note.archived) {
-        NotesApi.unarchive(noteId)
-          .then(() => {
-            const fungsiHome = home();
-            fungsiHome.renderArchived();
-          })
-          .catch((err) => {
-            console.error("Error unarchiving note:", err);
-          });
+        await NotesApi.unarchive(noteId);
+        home().renderArchived();
       } else {
-        NotesApi.archive(noteId)
-          .then(() => {
-            const fungsiHome = home();
-            fungsiHome.renderUnarchived();
-          })
-          .catch((err) => {
-            console.error("Error archiving note:", err);
-          });
+        await NotesApi.archive(noteId);
+        home().renderUnarchived();
       }
     };
 
-    // Tambahkan event listener yang baru
     deleteBtn.addEventListener("click", this._onDelete);
     archiveBtn.addEventListener("click", this._onArchive);
   }
