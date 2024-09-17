@@ -44,7 +44,7 @@ class NotesApi {
       const data = responseJson.data;
 
       console.log(responseJson.message);
-      this.getArchivedNotes();
+      this.getUnarchivedNotes();
       return data;
     } catch (error) {
       throw new Error(`HTTP error! status: ${responseJson.status}`);
