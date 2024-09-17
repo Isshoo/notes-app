@@ -7,9 +7,10 @@ class NotesApi {
       const responseJson = await response.json();
       const data = responseJson.data;
 
+      console.log(responseJson.message);
       return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${responseJson.status}`);
     }
   }
   static async getArchivedNotes() {
@@ -18,9 +19,10 @@ class NotesApi {
       const responseJson = await response.json();
       const data = responseJson.data;
 
+      console.log(responseJson.message);
       return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${responseJson.status}`);
     }
   }
 
@@ -41,11 +43,11 @@ class NotesApi {
       const responseJson = await response.json();
       const data = responseJson.data;
 
-      console.log(data);
+      console.log(responseJson.message);
       this.getArchivedNotes();
       return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${responseJson.status}`);
     }
   }
 
@@ -59,10 +61,53 @@ class NotesApi {
       const responseJson = await response.json();
       const data = responseJson.data;
 
-      console.log(data);
+      console.log(responseJson.message);
+
       return data;
     } catch (error) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${responseJson.status}`);
+    }
+  }
+
+  static async archive(noteId) {
+    try {
+      const options = {
+        method: "POST",
+      };
+
+      const response = await fetch(
+        `${baseUrl}/notes/${noteId}/archive`,
+        options,
+      );
+      const responseJson = await response.json();
+      const data = responseJson.data;
+
+      console.log(responseJson.message);
+
+      return data;
+    } catch (error) {
+      throw new Error(`HTTP error! status: ${responseJson.status}`);
+    }
+  }
+
+  static async unarchive(noteId) {
+    try {
+      const options = {
+        method: "POST",
+      };
+
+      const response = await fetch(
+        `${baseUrl}/notes/${noteId}/unarchive`,
+        options,
+      );
+      const responseJson = await response.json();
+      const data = responseJson.data;
+
+      console.log(responseJson.message);
+
+      return data;
+    } catch (error) {
+      throw new Error(`HTTP error! status: ${responseJson.status}`);
     }
   }
 }

@@ -1,3 +1,6 @@
+import NotesApi from "../data/remote/notes-api";
+import home from "../view/home";
+
 class NotesItem extends HTMLElement {
   _shadowRoot = null;
   _style = null;
@@ -75,7 +78,7 @@ class NotesItem extends HTMLElement {
           gap: 0.25rem;
         }
 
-        .btn-edit,
+     
         .btn-archive,
         .btn-delete {
           background-color: transparent;
@@ -85,14 +88,14 @@ class NotesItem extends HTMLElement {
           transition: 0.3s ease;
           border: none;
         }
-        .btn-edit i,
+   
         .btn-archive i,
         .btn-delete i {
           font-size: 1rem;
           color: #373f4e;
         }
 
-        .btn-edit:hover,
+    
         .btn-archive:hover,
         .btn-delete:hover {
           transform: scale(1.3);
@@ -103,7 +106,7 @@ class NotesItem extends HTMLElement {
           }
         }
 
-        .btn-edit:active,
+
         .btn-archive:active,
         .btn-delete:active {
           i {
@@ -113,7 +116,54 @@ class NotesItem extends HTMLElement {
       `;
   }
 
-  _handleClick() {}
+  _handleClick() {
+    const deleteBtn = this.shadowRoot.querySelector(".btn-delete");
+    const archiveBtn = this.shadowRoot.querySelector(".btn-archive");
+
+    deleteBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const noteId = this._note.id;
+
+      NotesApi.deleteNote(noteId)
+        .then(() => {
+          const fungsiHome = home();
+
+          if (this._note.archived) {
+            fungsiHome.renderArchived();
+          } else {
+            fungsiHome.renderUnarchived();
+          }
+        })
+        .catch((err) => {
+          console.error("Error deleting note:", err);
+        });
+    });
+
+    archiveBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const noteId = this._note.id;
+
+      if (this._note.archived) {
+        NotesApi.unarchive(noteId)
+          .then(() => {
+            const fungsiHome = home();
+            fungsiHome.renderArchived();
+          })
+          .catch((err) => {
+            console.error("Error unarchiving note:", err);
+          });
+      } else {
+        NotesApi.archive(noteId)
+          .then(() => {
+            const fungsiHome = home();
+            fungsiHome.renderUnarchived();
+          })
+          .catch((err) => {
+            console.error("Error archiving note:", err);
+          });
+      }
+    });
+  }
 
   render() {
     this._emptyContent();
@@ -134,9 +184,6 @@ class NotesItem extends HTMLElement {
                 ${this._note.body}
               </p>
               <div class="buttons">
-                <button class="btn-edit">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </button>
                 <button class="btn-archive">
                   <i class="fa-solid fa-archive"></i>
                 </button>

@@ -8,17 +8,18 @@ import {
 const home = () => {
   const renderUnarchived = async () => {
     const response = await NotesApi.getUnarchivedNotes();
-    console.log(response);
+
     render(response);
   };
 
   const renderArchived = async () => {
     const response = await NotesApi.getArchivedNotes();
-    console.log(response);
+
     render(response);
   };
 
   //RENDER NOTES LIST
+
   renderUnarchived();
 
   const notesContainer = document.querySelector("#notesContainer");
@@ -53,7 +54,11 @@ const home = () => {
 
     NotesApi.createNote(newNote);
 
+    allList.classList.add("active");
+    archivedList.classList.remove("active");
+
     renderUnarchived();
+
     formNewNote.reset();
   }
 
@@ -129,6 +134,11 @@ const home = () => {
 
     renderUnarchived();
   });
+
+  return {
+    renderUnarchived,
+    renderArchived,
+  };
 };
 
 export default home;
