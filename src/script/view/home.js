@@ -148,6 +148,37 @@ const home = () => {
       connectedValidationEl.innerText = "";
     }
   });
+
+  //SEARCH
+  const searchForm = document.getElementById("searchForm");
+
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const judulNotes = e.target.elements.searchInput.value.toLowerCase();
+
+    const cariUnarchived = async () => {
+      const response = await NotesApi.getUnarchivedNotes(judulNotes);
+      const hasil = response.filter((notes) => {
+        return notes.title.toLowerCase().includes(judulNotes);
+      });
+      render(hasil);
+    };
+
+    const cariArchived = async () => {
+      const response = await NotesApi.getArchivedNotes(judulNotes);
+      const hasil = response.filter((notes) => {
+        return notes.title.toLowerCase().includes(judulNotes);
+      });
+      render(hasil);
+    };
+
+    if (allList.classList.contains("active")) {
+      cariUnarchived();
+    } else {
+      cariArchived();
+    }
+  });
 };
 
 export { home, render, loading, renderArchived, renderUnarchived };
