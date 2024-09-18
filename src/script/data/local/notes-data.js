@@ -137,17 +137,6 @@ class NotesData {
       note.archived = false;
     }
   }
-
-  static searchNote(query) {
-    const filteredNotes = notesData.filter((note) => {
-      const loweredCaseNotes = (note.title || "-").toLowerCase();
-      const jammedNotes = loweredCaseNotes.replace(/\s/g, "");
-      const loweredCaseQuery = query.toLowerCase();
-      const jammedQuery = loweredCaseQuery.replace(/\s/g, "");
-      return jammedNotes.indexOf(jammedQuery) !== -1;
-    });
-    return filteredNotes;
-  }
 }
 
 export default NotesData;
