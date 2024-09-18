@@ -1,3 +1,5 @@
+import gsap from "gsap";
+
 class ResLoading extends HTMLElement {
   _shadowRoot = null;
   _style = null;
@@ -25,6 +27,18 @@ class ResLoading extends HTMLElement {
     this.render();
   }
 
+  _gsapJs() {
+    const loading = this.shadowRoot.querySelector("*");
+
+    gsap.from(loading, {
+      duration: 1,
+      x: 20,
+      opacity: 0,
+      ease: "power1.inOut",
+    });
+    gsap.to(loading, { duration: 1, x: 0, opacity: 1, ease: "power1.inOut" });
+  }
+
   render() {
     this._emptyContent();
     this._updateStyle();
@@ -32,6 +46,7 @@ class ResLoading extends HTMLElement {
     this._shadowRoot.innerHTML += `
         Loading...
       `;
+    this._gsapJs();
   }
 }
 

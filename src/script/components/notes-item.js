@@ -171,8 +171,13 @@ class NotesItem extends HTMLElement {
   _gsapJs() {
     const notesItem = this.shadowRoot.querySelector(".notes-item");
 
-    gsap.from(notesItem, { duration: 1, y: 50, opacity: 0 });
-    gsap.to(notesItem, { duration: 1, y: 0, opacity: 1 });
+    gsap.from(notesItem, {
+      duration: 1,
+      y: 10,
+      opacity: 0,
+      ease: "power1.inOut",
+    });
+    gsap.to(notesItem, { duration: 1, y: 0, opacity: 1, ease: "power1.inOut" });
   }
 
   render() {

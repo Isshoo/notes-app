@@ -1,4 +1,5 @@
 import Utils from "../utility/utils.js";
+import gsap from "gsap";
 
 class NotesList extends HTMLElement {
   _shadowRoot = null;
@@ -69,6 +70,18 @@ class NotesList extends HTMLElement {
     this._shadowRoot.innerHTML = "";
   }
 
+  _gsapJs() {
+    const notesList = this.shadowRoot.querySelector(".notes-list");
+
+    gsap.from(notesList, {
+      duration: 2,
+      y: 20,
+      opacity: 0,
+      ease: "power1.inOut",
+    });
+    gsap.to(notesList, { duration: 2, y: 0, opacity: 1, ease: "power1.inOut" });
+  }
+
   render() {
     this._emptyContent();
     this._updateStyle();
@@ -79,6 +92,7 @@ class NotesList extends HTMLElement {
         <slot></slot>
       </div>
     `;
+    this._gsapJs();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
