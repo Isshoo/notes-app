@@ -1,5 +1,6 @@
 import NotesApi from "../data/remote/notes-api";
 import { renderUnarchived, renderArchived } from "../view/home";
+import gsap from "gsap";
 
 class NotesItem extends HTMLElement {
   _shadowRoot = null;
@@ -58,6 +59,10 @@ class NotesItem extends HTMLElement {
         .notes-item:hover {
           background-color: #ffffff;
           transition: 0.3s ease;
+        }
+
+        .note-title {
+        overflow: auto;
         }
 
         .notes-item h3 {
@@ -163,6 +168,13 @@ class NotesItem extends HTMLElement {
     archiveBtn.addEventListener("click", this._onArchive);
   }
 
+  _gsapJs() {
+    const notesItem = this.shadowRoot.querySelector(".notes-item");
+
+    gsap.from(notesItem, { duration: 1, y: 50, opacity: 0 });
+    gsap.to(notesItem, { duration: 1, y: 0, opacity: 1 });
+  }
+
   render() {
     this._emptyContent();
     this._updateStyle();
@@ -177,7 +189,9 @@ class NotesItem extends HTMLElement {
               referrerpolicy="no-referrer"
             />
             <div class="notes-item" data-noteid="${this._note.id}">
+            <div class="note-title">
               <h3>${this._note.title}</h3>
+              </div>
               <div class="note-des">
               <p>
                 ${this._note.body}
@@ -194,6 +208,7 @@ class NotesItem extends HTMLElement {
             </div>
       `;
     this._handleClick();
+    this._gsapJs();
   }
 }
 

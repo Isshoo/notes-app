@@ -1,4 +1,5 @@
 import NotesApi from "../data/remote/notes-api.js";
+import gsapJs from "../utility/gsap.js";
 import Utils from "../utility/utils.js";
 import {
   customValidationTitleHandler,
@@ -71,6 +72,7 @@ const loading = async () => {
   await Utils.delay();
 };
 const home = () => {
+  gsapJs();
   // CREATE NEW NOTE
 
   const formNewNote = document.getElementById("noteForm");
