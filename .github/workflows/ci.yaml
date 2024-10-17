@@ -22,3 +22,6 @@ jobs:
       - name: Run Automated Test
         run: |
           npm install
+        env:
+          CI: true
+          API_KEY_NOTES: ${{ secrets.API_KEY_NOTES }}
